@@ -1,0 +1,39 @@
+diff --git a/lcs.py b/lcs.1.py
+index d5135e3..28f9e9a 100644
+--- a/lcs.py
++++ b/lcs.1.py
+@@ -1,6 +1,5 @@
+ ﻿import random
+ import time
+-import timeit
+ 
+ 
+ def longest_common_subsequence(text1, text2):
+@@ -17,13 +16,18 @@ def longest_common_subsequence(text1, text2):
+ 
+     return dp[m][n]
+ 
++time_diffs = []
+ 
+-text1 = "".join([chr(random.randint(0, 10000)) for _ in range(10000)])
+-print(text1)
+-text2 = "ace"
++for i in range(100):
++    text1 = "".join([chr(random.randint(0, 128)) for _ in range(1000)])
++    text2 = "".join([chr(random.randint(0, 128)) for _ in range(1000)])
+ 
+-ts = time.time_ns()
+-result = longest_common_subsequence(text1, text2)
+-ts1 = time.time_ns()
++    ts = time.time_ns()
++    result = longest_common_subsequence(text1, text2)
++    ts1 = time.time_ns()
++    time_diff = ts1 - ts
++    time_diffs.append(time_diff)
+ 
+-print(f"result: {result}, execution time:{ts1}-{ts}={ts1-ts}")
+\ No newline at end of file
++    print(f"i: {i}, result: {result}, execution time: {ts1}ns - {ts}ns = {time_diff}ns = {(time_diff)/1000}mcs = {(time_diff)/1000_000}ms = {(time_diff)/1000_000_000}s")
++
++print(f"min:{min(time_diffs)/1_000_000}ms, max:{max(time_diffs)/1_000_000}ms, avg:{sum(time_diffs)/len(time_diffs)/1_000_000}ms" )
+\ No newline at end of file
